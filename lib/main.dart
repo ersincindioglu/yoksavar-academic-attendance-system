@@ -11,9 +11,9 @@ import 'device_service.dart';
 /* ============================
     AĞ VE KANAL YAPILANDIRMASI
 ============================ */
-const String supabaseUrl = 'https://elddnvnrtsxcjoaxhocl.supabase.co';
+const String supabaseUrl = '';
 const String supabaseAnonKey =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVsZGRudm5ydHN4Y2pvYXhob2NsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1NTM5NDYsImV4cCI6MjA4MzEyOTk0Nn0.E-5VcwWKURf7_VQq8K6T1HfKLK6UyldFx3ItywjMDsE';
+    '';
 const MethodChannel kNfcChannel = MethodChannel("yoklama/nfc");
 
 void main() {
