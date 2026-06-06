@@ -1,0 +1,26 @@
+Senin iş akışına uygun komutlar
+
+  Telefona direkt yükle (en hızlı, tek ABI):
+  flutter run --release
+  Telefonun mimarisini otomatik algılar, sadece onu derler. ~15-18 MB.                                                                                                                                  
+
+  APK dosyası üret (MobSF'ye atmak / paylaşmak için):
+  flutter build apk --release --target-platform android-arm64
+  Modern telefonların %95'i için tek APK. ~15-18 MB.
+
+  Tüm mimariler için (dağıtım amaçlı):
+  flutter build apk --release --split-per-abi --obfuscate --split-debug-info=build/debug-info
+  3 ayrı APK üretir, her biri ~15-18 MB.
+
+
+   ┌────────────────────┬─────────────────────────────────────┐
+  │        Önce        │                Sonra                │
+  ├────────────────────┼─────────────────────────────────────┤
+  │ flutter build apk  │ .\build_release.ps1 (PowerShell'de) │
+  ├────────────────────┼─────────────────────────────────────┤
+  │ 49 MB (fat, 3 ABI) │ 18 MB (arm64, obfuscated)           │
+  ├────────────────────┼─────────────────────────────────────┤
+  │ Kod okunaklı       │ R8 + Dart obfuscation aktif         │
+  └────────────────────┴─────────────────────────────────────┘
+
+  Bundan sonra ! ile değil, direkt PowerShell terminalinde .\build_release.ps1 yazarak build alabilirsin.
