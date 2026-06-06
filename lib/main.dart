@@ -13,11 +13,12 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'firebase_options.dart';
 import 'device_service.dart';
 
-/* ═══════════════════════════════
-   SABİTLER
-═══════════════════════════════ */
-String supabaseUrl = '';
-String supabaseAnonKey = '';
+/* ============================
+    AĞ VE KANAL YAPILANDIRMASI
+============================ */
+const String supabaseUrl = '';
+const String supabaseAnonKey =
+    '';
 const MethodChannel kNfcChannel = MethodChannel("yoklama/nfc");
 const MethodChannel kBleChannel = MethodChannel("yoklama/ble");
 const String kServiceUuid = "0000abcd-0000-1000-8000-00805f9b34fb";
