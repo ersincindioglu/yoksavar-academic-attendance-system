@@ -214,6 +214,7 @@ class RoleSelectPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = YT.isDark(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
         decoration: BoxDecoration(
@@ -1069,6 +1070,9 @@ class _StudentPageState extends State<StudentPage> {
       } else if (mounted) {
         setState(() => status = "⚠️ Biyometrik doğrulama iptal edildi.");
       }
+    } on LocalAuthException catch (e) {
+      debugPrint("🔒 [Biyometrik] LocalAuthException code=${e.code} msg=${e.message}");
+      if (mounted) setState(() => status = "⚠️ ${_biometricErrorMsg(e.code, e.message)}");
     } on PlatformException catch (e) {
       debugPrint("🔒 [Biyometrik] PlatformException code=${e.code} msg=${e.message}");
       if (mounted) setState(() => status = "⚠️ ${_biometricErrorMsg(e.code, e.message)}");
@@ -1089,6 +1093,7 @@ class _StudentPageState extends State<StudentPage> {
     switch (code) {
       case 'NotAvailable':
       case 'not_available':
+      case 'notAvailable':
         if (credsMissing) {
           return "Ekran kilidi ayarlı değil!\n"
               "Telefon Ayarları → Güvenlik → Ekran Kilidi'nden bir PIN/Desen/Şifre ekleyin, "
@@ -1099,25 +1104,31 @@ class _StudentPageState extends State<StudentPage> {
             "(Detay: $code — ${msg ?? '-'})";
       case 'NotEnrolled':
       case 'not_enrolled':
+      case 'notEnrolled':
         return "Parmak izi kayıtlı değil!\n"
             "Telefon Ayarları → Güvenlik → Parmak İzi'nden parmak izinizi ekleyip tekrar deneyin.";
       case 'LockedOut':
       case 'lock_out':
       case 'locked_out':
+      case 'lockedOut':
         return "Çok fazla hatalı deneme! 30 sn bekleyip tekrar deneyin.";
       case 'PermanentlyLockedOut':
       case 'permanent_lock_out':
       case 'permanently_locked_out':
+      case 'permanentlyLockedOut':
         return "Biyometrik kilit kalıcı olarak devre dışı.\n"
             "Önce telefonun PIN/Şifresi ile kilidi açın, sonra tekrar deneyin.";
       case 'PasscodeNotSet':
       case 'passcode_not_set':
+      case 'passcodeNotSet':
         return "Telefonda ekran kilidi (PIN/Şifre) tanımlı değil.\n"
             "Ayarlar → Güvenlik → Ekran Kilidi menüsünden ekleyin.";
       case 'OtherOperatingSystem':
+      case 'biometricOnlyNotSupported':
         return "İşletim sistemi biyometrik doğrulamayı desteklemiyor.";
       case 'UserCanceled':
       case 'user_canceled':
+      case 'userCanceled':
         return "Doğrulama iptal edildi.";
       default:
         return "Biyometrik hata ($code)\n${msg ?? '-'}\nLütfen ekran kilidini ve parmak izini kontrol edin.";
