@@ -1071,8 +1071,8 @@ class _StudentPageState extends State<StudentPage> {
         setState(() => status = "⚠️ Biyometrik doğrulama iptal edildi.");
       }
     } on LocalAuthException catch (e) {
-      debugPrint("🔒 [Biyometrik] LocalAuthException code=${e.code} msg=${e.message}");
-      if (mounted) setState(() => status = "⚠️ ${_biometricErrorMsg(e.code, e.message)}");
+      debugPrint("🔒 [Biyometrik] LocalAuthException code=${e.code.name}");
+      if (mounted) setState(() => status = "⚠️ ${_biometricErrorMsg(e.code.name, null)}");
     } on PlatformException catch (e) {
       debugPrint("🔒 [Biyometrik] PlatformException code=${e.code} msg=${e.message}");
       if (mounted) setState(() => status = "⚠️ ${_biometricErrorMsg(e.code, e.message)}");
